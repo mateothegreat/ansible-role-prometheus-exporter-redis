@@ -21,7 +21,6 @@
     dest: "/etc/systemd/system/{{ install_binary_name }}.service"
     mode: "0644"
     force: "yes"
-  notify: "restart enabled"
 
 - name: "Remove tmp files"
   file:
