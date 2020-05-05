@@ -1,0 +1,13 @@
+namespace: mateothegreat
+name: prometheus-exporter-redis
+version: 0.0.1
+readme: README.md
+authors:
+  - Matthew Davis (https://matthewdavis.io)
+description: "Install & configure the prometheus exporter for redis."
+license: ["MIT"]
+license_file: COPYING
+tags: ["monitoring", "prometheus", "exporter", "redis"]
+repository: https://github.com/mateothegreat/ansible-role-prometheus-exporter-redis.git
+homepage: https://github.com/mateothegreat/ansible-role-prometheus-exporter-redis
+issues: https://github.com/mateothegreat/ansible-role-prometheus-exporter-redis/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
