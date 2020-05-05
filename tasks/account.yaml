@@ -1,0 +1,13 @@
+---
+- name: "Create group ({{ service_group }})"
+  become: "true"
+  group:
+    name: "{{ service_group }}"
+
+- name: "Create user ({{ service_user }})"
+  become: "true"
+  user:
+    name: "{{ service_user }}"
+    create_home: "no"
+    group: "{{ service_group }}"
+    shell: "/bin/false"

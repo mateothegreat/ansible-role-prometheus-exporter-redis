@@ -1,0 +1,9 @@
+---
+install_path: "/usr/local/bin"
+install_binary_name: "prometheus-exporter-redis"
+listen_address: "0.0.0.0:9101"
+redis_uri: "redis://127.0.0.1:6379"
+service_user: "exporters"
+service_group: "exporters"
+service_start: "true"
+version: "v1.6.0"

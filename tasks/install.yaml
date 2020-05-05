@@ -1,0 +1,41 @@
+- name: "Download & unarchive"
+  unarchive:
+    src: "https://github.com/oliver006/redis_exporter/releases/download/{{ version }}/redis_exporter-{{ version }}.linux-amd64.tar.gz"
+    dest: "/tmp"
+    list_files: "yes"
+    remote_src: "yes"
+  register: unarchive_result
+
+- name: "Install binary"
+  become: "true"
+  copy:
+    src: "/tmp/{{ unarchive_result.files[0] }}/redis_exporter"
+    dest: "{{ install_path }}/{{ install_binary_name }}"
+    remote_src: "yes"
+    mode: "0755"
+
+- name: "Install {{ install_binary_name }} service file"
+  become: "true"
+  template:
+    src: "service.j2"
+    dest: "/etc/systemd/system/{{ install_binary_name }}.service"
+    mode: "0644"
+    force: "yes"
+  notify: "restart enabled"
+
+- name: "Remove tmp files"
+  file:
+    path: "{{ item }}"
+    state: "absent"
+  loop:
+    - "/tmp/redis_exporter-{{ version }}.linux-amd64"
+    - "/tmp/redis_exporter-{{ version }}.linux-amd64.tar.gz"
+
+- name: "(Re)enable redis-exporter service"
+  become: "true"
+  systemd:
+    name: "{{ install_binary_name }}"
+    daemon_reload: "yes"
+    enabled: "yes"
+    state: "restarted"
+  when: service_start | bool
